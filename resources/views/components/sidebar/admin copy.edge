@@ -1,0 +1,142 @@
+                <!-- Main Sidebar -->
+        <div class="h-full glass-effect neo-shadow flex flex-col relative z-10">
+            <!-- Header Section -->
+            <div class="flex flex-col items-center pt-8 pb-6 px-6">
+                <!-- Logo & Title -->
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="relative">
+                        <div class="h-12 w-12 bg-gradient-to-tr from-blue-500 via-purple-500 to-pink-500 rounded-2xl flex items-center justify-center pulse-glow">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-white" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <div class="absolute -inset-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl blur opacity-25"></div>
+                    </div>
+                    <h1 class="text-2xl font-bold text-gradient">
+                        Admin Portal
+                    </h1>
+                </div>
+                
+                <!-- Profile Section -->
+                <div class="relative group mb-6">
+                    <div class="absolute -inset-1 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 rounded-full blur opacity-60 group-hover:opacity-100 transition duration-1000"></div>
+                    <div class="relative">
+                        <img 
+                            src="https://via.placeholder.com/100x100/6366f1/ffffff?text=Admin" 
+                            alt="Profile Picture" 
+                            class="w-24 h-24 rounded-full object-cover border-2 border-white/20 shadow-2xl"
+                        >
+                        <div class="absolute bottom-1 right-1 bg-gradient-to-r from-emerald-500 to-teal-500 text-white p-2 rounded-full shadow-lg transform transition-transform hover:scale-110 cursor-pointer">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- User Info -->
+                <div class="text-center space-y-2">
+                    <h2 class="text-lg font-semibold text-white">John Doe</h2>
+                    <span class="text-sm text-slate-300">System Administrator</span>
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gradient-to-r from-emerald-500/20 to-teal-500/20 border border-emerald-500/30">
+                        <div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
+                        <span class="text-xs text-emerald-300 font-medium">Online</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Divider -->
+            <div class="px-6 mb-4">
+                <div class="h-px bg-gradient-to-r from-transparent via-blue-500/50 to-transparent"></div>
+            </div>
+            
+            <!-- Navigation -->
+            <nav class="flex-1 px-4 pb-6 space-y-2 overflow-y-auto scrollbar-hide">
+                <a href="{{ route('dashboard') }}" class="menu-item group flex items-center gap-4 px-5 py-4 text-slate-200 rounded-2xl hover:bg-gradient-to-r hover:from-blue-600/20 hover:to-purple-600/20 hover:border-blue-500/30 border border-transparent transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-blue-500/10">
+                    <div class="p-2 rounded-xl bg-gradient-to-br from-blue-500/20 to-purple-500/20 group-hover:from-blue-500/30 group-hover:to-purple-500/30 transition-all duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5a2 2 0 012-2h4a2 2 0 012 2v6H8V5z" />
+                        </svg>
+                    </div>
+                    <span class="font-semibold text-sm group-hover:text-white transition-colors">Dashboard</span>
+                </a>
+                
+                <a href="{{ route('pegawai.index') }}" class="menu-item group flex items-center gap-4 px-5 py-4 text-slate-200 rounded-2xl hover:bg-gradient-to-r hover:from-purple-600/20 hover:to-pink-600/20 hover:border-purple-500/30 border border-transparent transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-purple-500/10">
+                    <div class="p-2 rounded-xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 group-hover:from-purple-500/30 group-hover:to-pink-500/30 transition-all duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
+                        </svg>
+                    </div>
+                    <span class="font-semibold text-sm group-hover:text-white transition-colors">Manajemen Pegawai</span>
+                </a>
+                
+                <a href="{{ route('jabatan.index')}}" class="menu-item group flex items-center gap-4 px-5 py-4 text-slate-200 rounded-2xl hover:bg-gradient-to-r hover:from-pink-600/20 hover:to-orange-600/20 hover:border-pink-500/30 border border-transparent transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-pink-500/10">
+                    <div class="p-2 rounded-xl bg-gradient-to-br from-pink-500/20 to-orange-500/20 group-hover:from-pink-500/30 group-hover:to-orange-500/30 transition-all duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                        </svg>
+                    </div>
+                    <span class="font-semibold text-sm group-hover:text-white transition-colors">Jabatan</span>
+                </a>
+                
+                <a href="{{ route('unit_kerja.index') }}" class="menu-item group flex items-center gap-4 px-5 py-4 text-slate-200 rounded-2xl hover:bg-gradient-to-r hover:from-orange-600/20 hover:to-yellow-600/20 hover:border-orange-500/30 border border-transparent transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-orange-500/10">
+                    <div class="p-2 rounded-xl bg-gradient-to-br from-orange-500/20 to-yellow-500/20 group-hover:from-orange-500/30 group-hover:to-yellow-500/30 transition-all duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                        </svg>
+                    </div>
+                    <span class="font-semibold text-sm group-hover:text-white transition-colors">Unit Kerja</span>
+                </a>
+                
+                <a href="{{ route('cuti.index') }}" class="menu-item group flex items-center gap-4 px-5 py-4 text-slate-200 rounded-2xl hover:bg-gradient-to-r hover:from-emerald-600/20 hover:to-teal-600/20 hover:border-emerald-500/30 border border-transparent transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-emerald-500/10">
+                    <div class="p-2 rounded-xl bg-gradient-to-br from-emerald-500/20 to-teal-500/20 group-hover:from-emerald-500/30 group-hover:to-teal-500/30 transition-all duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3a2 2 0 012-2h4a2 2 0 012 2v4m-6 0h6M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3" />
+                        </svg>
+                    </div>
+                    <span class="font-semibold text-sm group-hover:text-white transition-colors">Cuti</span>
+                </a>
+                
+                <a href="{{ route('cuti.verifikasi') }}" class="menu-item group flex items-center gap-4 px-5 py-4 text-slate-200 rounded-2xl hover:bg-gradient-to-r hover:from-teal-600/20 hover:to-cyan-600/20 hover:border-teal-500/30 border border-transparent transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-teal-500/10">
+                    <div class="p-2 rounded-xl bg-gradient-to-br from-teal-500/20 to-cyan-500/20 group-hover:from-teal-500/30 group-hover:to-cyan-500/30 transition-all duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <span class="font-semibold text-sm group-hover:text-white transition-colors">Verifikasi Cuti</span>
+                </a>
+                
+                <a href="{{ route('absensi.index') }}" class="menu-item group flex items-center gap-4 px-5 py-4 text-slate-200 rounded-2xl hover:bg-gradient-to-r hover:from-cyan-600/20 hover:to-blue-600/20 hover:border-cyan-500/30 border border-transparent transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-cyan-500/10">
+                    <div class="p-2 rounded-xl bg-gradient-to-br from-cyan-500/20 to-blue-500/20 group-hover:from-cyan-500/30 group-hover:to-blue-500/30 transition-all duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <span class="font-semibold text-sm group-hover:text-white transition-colors">Absensi</span>
+                </a>
+                
+                <a href="{{ route('absensi.history') }}" class="menu-item group flex items-center gap-4 px-5 py-4 text-slate-200 rounded-2xl hover:bg-gradient-to-r hover:from-indigo-600/20 hover:to-purple-600/20 hover:border-indigo-500/30 border border-transparent transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-indigo-500/10">
+                    <div class="p-2 rounded-xl bg-gradient-to-br from-indigo-500/20 to-purple-500/20 group-hover:from-indigo-500/30 group-hover:to-purple-500/30 transition-all duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                        </svg>
+                    </div>
+                    <span class="font-semibold text-sm group-hover:text-white transition-colors">History Absensi</span>
+                </a>
+            </nav>
+            
+            <!-- Logout Button -->
+            <div class="px-4 pb-6">
+                <button class="w-full group flex items-center justify-center gap-3 px-6 py-4 text-white bg-gradient-to-r from-red-600 via-pink-600 to-purple-600 rounded-2xl shadow-2xl hover:shadow-red-500/25 hover:scale-[1.02] transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-red-500/25 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-r from-red-500 via-pink-500 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div class="relative flex items-center gap-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                        </svg>
+                        <span class="font-semibold text-sm">Logout</span>
+                    </div>
+                </button>
+            </div>
+        </div>

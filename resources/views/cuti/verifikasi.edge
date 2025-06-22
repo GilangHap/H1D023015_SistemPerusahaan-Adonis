@@ -1,0 +1,180 @@
+@component('layouts/app', { title: 'Verifikasi Cuti' })
+
+@slot('sidebar')
+    @include('components/sidebar/admin')
+@endslot
+
+@slot('main')
+<div class="min-h-screen bg-slate-900 relative overflow-hidden">
+    <!-- Floating Background Orbs -->
+    <div class="absolute top-0 left-0 -z-10">
+        <div class="floating-orb-bg floating-orb-bg-1"></div>
+        <div class="floating-orb-bg floating-orb-bg-2"></div>
+        <div class="floating-orb-bg floating-orb-bg-3"></div>
+        <div class="floating-orb-bg floating-orb-bg-4"></div>
+    </div>
+    <div class="relative z-10 py-12 px-8 max-w-5xl mx-auto">
+        <div class="mb-8 flex items-center gap-4">
+            <div class="h-12 w-12 bg-gradient-to-tr from-purple-500 via-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center pulse-glow shadow-lg">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-3-3v6"/>
+                </svg>
+            </div>
+            <h2 class="text-3xl font-bold text-gradient drop-shadow">Verifikasi Pengajuan Cuti</h2>
+        </div>
+        <div class="glass-effect neo-shadow rounded-3xl p-8 border border-slate-700/50 shadow-2xl w-full overflow-x-auto">
+            <table class="min-w-full text-sm text-left text-slate-300">
+                <thead>
+                    <tr class="border-b border-slate-700/50">
+                        <th class="px-6 py-4 font-semibold text-slate-300 uppercase tracking-wider">Nama Pegawai</th>
+                        <th class="px-6 py-4 font-semibold text-slate-300 uppercase tracking-wider">Tanggal Mulai</th>
+                        <th class="px-6 py-4 font-semibold text-slate-300 uppercase tracking-wider">Tanggal Akhir</th>
+                        <th class="px-6 py-4 font-semibold text-slate-300 uppercase tracking-wider">Jumlah Hari</th>
+                        <th class="px-6 py-4 font-semibold text-slate-300 uppercase tracking-wider">Alasan</th>
+                        <th class="px-6 py-4 text-center font-semibold text-slate-300 uppercase tracking-wider">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-700/30">
+                    @if(cutis.length === 0)
+                        <tr>
+                            <td colspan="6" class="py-16 text-center text-slate-400">
+                                <div class="w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-slate-700 to-slate-800 rounded-3xl flex items-center justify-center">
+                                    <svg class="w-12 h-12 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0z"/>
+                                    </svg>
+                                </div>
+                                <h3 class="text-xl font-semibold mb-2">Tidak ada pengajuan cuti</h3>
+                                <p class="mb-6">Belum ada pengajuan cuti yang perlu diverifikasi.</p>
+                            </td>
+                        </tr>
+                    @else
+                        @each(cuti in cutis)
+                        <tr class="group hover:bg-slate-800/50 transition-all duration-300 relative">
+                            <td class="px-6 py-4 font-semibold text-blue-300 group-hover:text-blue-200 transition-colors">
+                                {{ cuti.pegawai?.nama ?? '-' }}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ cuti.tanggal_mulai?.toISODate ? cuti.tanggal_mulai.toISODate() : cuti.tanggal_mulai  }}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ cuti.tanggal_akhir?.toISODate ? cuti.tanggal_akhir.toISODate() : cuti.tanggal_akhir  }}
+                            </td>
+                            <td class="px-6 py-4 text-cyan-300 font-semibold">
+                                {{ cuti.jumlah_hari }}
+                            </td>
+                            <td class="px-6 py-4 text-slate-200">
+                                {{ cuti.alasan }}
+                            </td>
+                            <td class="px-6 py-4 text-center">
+                                <form action="{{ route('cuti.prosesVerifikasi') }}" method="POST" class="inline-flex gap-2 justify-center">
+                                    {{ csrfField() }}
+                                    <input type="hidden" name="id" value="{{ cuti.id }}">
+                                    <button type="submit" name="status" value="approved"
+                                        class="group/btn relative overflow-hidden px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-semibold shadow-lg hover:from-emerald-600 hover:to-teal-600 hover:scale-105 transition-all duration-200 flex items-center gap-2">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                        </svg>
+                                        Setujui
+                                    </button>
+                                    <button type="submit" name="status" value="rejected"
+                                        class="group/btn relative overflow-hidden px-4 py-2 rounded-xl bg-gradient-to-r from-red-500 to-pink-500 text-white font-semibold shadow-lg hover:from-red-600 hover:to-pink-600 hover:scale-105 transition-all duration-200 flex items-center gap-2">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                                        </svg>
+                                        Tolak
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        @endeach
+                    @endif
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@endslot
+
+@slot('head')
+    <style>
+        .floating-orb-bg {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
+            animation: float-bg 8s ease-in-out infinite;
+        }
+        .floating-orb-bg-1 {
+            width: 300px;
+            height: 300px;
+            top: 10%;
+            right: 10%;
+            animation-delay: 0s;
+        }
+        .floating-orb-bg-2 {
+            width: 200px;
+            height: 200px;
+            top: 60%;
+            right: 60%;
+            background: radial-gradient(circle, rgba(168, 85, 247, 0.15) 0%, transparent 70%);
+            animation-delay: 2s;
+        }
+        .floating-orb-bg-3 {
+            width: 150px;
+            height: 150px;
+            top: 30%;
+            left: 15%;
+            background: radial-gradient(circle, rgba(244, 114, 182, 0.15) 0%, transparent 70%);
+            animation-delay: 4s;
+        }
+        .floating-orb-bg-4 {
+            width: 250px;
+            height: 250px;
+            bottom: 20%;
+            left: 20%;
+            background: radial-gradient(circle, rgba(34, 197, 94, 0.1) 0%, transparent 70%);
+            animation-delay: 6s;
+        }
+        @keyframes float-bg {
+            0%, 100% { 
+                transform: translateY(0px) rotate(0deg); 
+                opacity: 0.3;
+            }
+            50% { 
+                transform: translateY(-30px) rotate(180deg); 
+                opacity: 0.1;
+            }
+        }
+        .glass-effect {
+            backdrop-filter: blur(24px);
+            background: rgba(15, 23, 42, 0.8);
+            border: 1.5px solid rgba(148, 163, 184, 0.13);
+        }
+        .pulse-glow {
+            animation: pulse-glow 2s infinite;
+        }
+        @keyframes pulse-glow {
+            0%, 100% { 
+                box-shadow: 0 0 24px rgba(59, 130, 246, 0.5);
+                transform: scale(1);
+            }
+            50% { 
+                box-shadow: 0 0 36px rgba(59, 130, 246, 0.7);
+                transform: scale(1.07);
+            }
+        }
+        .text-gradient {
+            background: linear-gradient(135deg, #60a5fa, #a78bfa, #f472b6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .neo-shadow {
+            box-shadow: 
+                inset 8px 8px 16px rgba(0, 0, 0, 0.3),
+                inset -8px -8px 16px rgba(30, 41, 59, 0.2),
+                0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+@endslot
+
+@endcomponent

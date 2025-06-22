@@ -1,0 +1,262 @@
+@component('layouts/app', { title: 'Tambah Pegawai' })
+
+@slot('sidebar')
+    @include('components/sidebar/admin')
+@endslot
+
+@slot('main')
+<div class="min-h-screen bg-gray-900 text-white relative overflow-hidden">
+    <!-- Background decoration -->
+    <div class="absolute top-0 left-0 w-full h-full">
+        <div class="absolute top-20 left-10 w-72 h-72 bg-[#1e1e2f] rounded-full blur-3xl"></div>
+        <div class="absolute bottom-20 right-10 w-96 h-96 bg-[#1e1e2f] rounded-full blur-3xl"></div>
+    </div>
+
+    <div class="relative z-10 py-12 px-8">
+        <!-- Header Section -->
+        <div class="mb-12">
+            <div class="flex items-center space-x-4 mb-6">
+                <div class="w-1.5 h-12 bg-gradient-to-b from-indigo-500 to-purple-600 rounded-full"></div>
+                <div>
+                    <h1 class="text-4xl text-gradient font-bold">
+                        Tambah Pegawai
+                    </h1>
+                    <p class="text-gray-300 text-lg mt-2 font-medium">Isi data pegawai baru dengan lengkap</p>
+                </div>
+            </div>
+            <!-- Breadcrumb -->
+            <nav class="flex items-center space-x-2 text-sm text-gray-400">
+                <a href="{{ route('dashboard') }}" class="hover:text-indigo-500 transition-colors">Dashboard</a>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+                <a href="{{ route('pegawai.index') }}" class="hover:text-indigo-500 transition-colors">Pegawai</a>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+                <span class="text-gray-100 font-medium">Tambah</span>
+            </nav>
+        </div>
+
+        <!-- Alert Messages -->
+        @if(session.flashMessages && session.flashMessages.has('success'))
+            <div class="mb-8 bg-green-800/80 border border-green-600 rounded-lg p-4 flex items-center space-x-3 shadow-lg">
+                <div class="flex-shrink-0 w-8 h-8 bg-green-600 rounded-full flex items-center justify-center">
+                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                </div>
+                <p class="text-white font-medium">{{ session.flashMessages.get('success') }}</p>
+            </div>
+        @endif
+
+        @if(session.flashMessages && session.flashMessages.has('error'))
+            <div class="mb-8 bg-red-800/80 border border-red-600 rounded-lg p-4 flex items-center space-x-3 shadow-lg">
+                <div class="flex-shrink-0 w-8 h-8 bg-red-600 rounded-full flex items-center justify-center">
+                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                </div>
+                <p class="text-white font-medium">{{ session.flashMessages.get('error') }}</p>
+            </div>
+        @endif
+
+        <!-- Main Form -->
+        <form action="{{ route('pegawai.store') }}" method="POST" enctype="multipart/form-data" class="max-w-5xl mx-auto">
+            {{ csrfField() }}
+            <div class="bg-gray-800/80 rounded-3xl border border-gray-700 overflow-hidden">
+                <!-- Form Header -->
+                <div class="bg-gradient-to-r from-indigo-500 to-purple-600 px-8 py-6">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
+                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white">Informasi Pegawai</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form Body -->
+                <div class="p-8 space-y-8">
+                    <!-- Personal Information Section -->
+                    <div>
+                        <h4 class="text-lg font-bold text-gray-300 mb-6 flex items-center space-x-2">
+                            <div class="w-6 h-6 bg-blue-600 rounded-lg flex items-center justify-center">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                                </svg>
+                            </div>
+                            <span>Informasi Personal</span>
+                        </h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- NIP -->
+                            <div class="space-y-2">
+                                <label class="block text-sm font-semibold text-gray-300">
+                                    NIP <span class="text-red-500">*</span>
+                                </label>
+                                <input type="text" name="nip"
+                                    class="w-full px-4 py-3 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 bg-gray-800"
+                                    required placeholder="Masukkan NIP">
+                                @if(session.flashMessages && session.flashMessages.has('errors.nip'))
+                                    <p class="text-red-500 text-xs mt-1">{{ session.flashMessages.get('errors.nip')[0] }}</p>
+                                @endif
+                            </div>
+
+                            <!-- Password -->
+                            <div class="space-y-2">
+                                <label class="block text-sm font-semibold text-gray-300">
+                                    Password <span class="text-red-500">*</span>
+                                </label>
+                                <div class="relative">
+                                    <input type="password" name="password" id="password"
+                                        class="w-full px-4 py-3 pr-12 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 bg-gray-800"
+                                        required placeholder="Masukkan password">
+                                    <button type="button" onclick="togglePassword()" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-300 hover:text-gray-200">
+                                        <svg id="eye-icon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                                @if(session.flashMessages && session.flashMessages.has('errors.password'))
+                                    <p class="text-red-500 text-xs mt-1">{{ session.flashMessages.get('errors.password')[0] }}</p>
+                                @endif
+                            </div>
+
+                            <!-- Nama -->
+                            <div class="space-y-2">
+                                <label class="block text-sm font-semibold text-gray-300">
+                                    Nama Lengkap <span class="text-red-500">*</span>
+                                </label>
+                                <input type="text" name="nama"
+                                    class="w-full px-4 py-3 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 bg-gray-800"
+                                    required placeholder="Masukkan nama lengkap">
+                                @if(session.flashMessages && session.flashMessages.has('errors.nama'))
+                                    <p class="text-red-500 text-xs mt-1">{{ session.flashMessages.get('errors.nama')[0] }}</p>
+                                @endif
+                            </div>
+
+                            <!-- Email -->
+                            <div class="space-y-2">
+                                <label class="block text-sm font-semibold text-gray-300">Email</label>
+                                <input type="email" name="email"
+                                    class="w-full px-4 py-3 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 bg-gray-800"
+                                    placeholder="email@example.com">
+                                @if(session.flashMessages && session.flashMessages.has('errors.email'))
+                                    <p class="text-red-500 text-xs mt-1">{{ session.flashMessages.get('errors.email')[0] }}</p>
+                                @endif
+                            </div>
+
+                            <!-- No. Telepon -->
+                            <div class="space-y-2 md:col-span-2">
+                                <label class="block text-sm font-semibold text-gray-300">No. Telepon</label>
+                                <input type="text" name="noTelp"
+                                    class="w-full px-4 py-3 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 bg-gray-800"
+                                    placeholder="Contoh: 081234567890">
+                                @if(session.flashMessages && session.flashMessages.has('errors.noTelp'))
+                                    <p class="text-red-500 text-xs mt-1">{{ session.flashMessages.get('errors.noTelp')[0] }}</p>
+                                @endif
+                            </div>
+
+                            <!-- Alamat -->
+                            <div class="space-y-2 md:col-span-2">
+                                <label class="block text-sm font-semibold text-gray-300">Alamat</label>
+                                <textarea name="alamat" rows="3"
+                                    class="w-full px-4 py-3 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 bg-gray-800"
+                                    placeholder="Masukkan alamat lengkap"></textarea>
+                                @if(session.flashMessages && session.flashMessages.has('errors.alamat'))
+                                    <p class="text-red-500 text-xs mt-1">{{ session.flashMessages.get('errors.alamat')[0] }}</p>
+                                @endif
+                            </div>
+
+                            <!-- Jabatan -->
+                            <div class="space-y-2">
+                                <label class="block text-sm font-semibold text-gray-300">Jabatan</label>
+                                <select name="jabatanId"
+                                    class="w-full px-4 py-3 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 bg-gray-800">
+                                    <option value="" class="bg-gray-800">Pilih Jabatan</option>
+                                    @each(jabatan in jabatans)
+                                        <option value="{{ jabatan.id }}">{{ jabatan.namaJabatan }}</option>
+                                    @endeach
+                                </select>
+                                @if(session.flashMessages && session.flashMessages.has('errors.jabatanId'))
+                                    <p class="text-red-500 text-xs mt-1">{{ session.flashMessages.get('errors.jabatanId')[0] }}</p>
+                                @endif
+                            </div>
+
+                            <!-- Unit Kerja -->
+                            <div class="space-y-2">
+                                <label class="block text-sm font-semibold text-gray-300">Unit Kerja</label>
+                                <select name="unitKerjaId"
+                                    class="w-full px-4 py-3 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 bg-gray-800">
+                                    <option value="" class="bg-gray-800">Pilih Unit Kerja</option>
+                                    @each(unit in unitKerjas)
+                                        <option value="{{ unit.id }}">{{ unit.namaUnit }}</option>
+                                    @endeach
+                                </select>
+                                @if(session.flashMessages && session.flashMessages.has('errors.unitKerjaId'))
+                                    <p class="text-red-500 text-xs mt-1">{{ session.flashMessages.get('errors.unitKerjaId')[0] }}</p>
+                                @endif
+                            </div>
+
+                            <!-- Gaji Pokok -->
+                            <div class="space-y-2">
+                                <label class="block text-sm font-semibold text-gray-300">Gaji Pokok</label>
+                                <input type="number" name="gajiPokok"
+                                    class="w-full px-4 py-3 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 bg-gray-800"
+                                    placeholder="Masukkan gaji pokok">
+                                @if(session.flashMessages && session.flashMessages.has('errors.gajiPokok'))
+                                    <p class="text-red-500 text-xs mt-1">{{ session.flashMessages.get('errors.gajiPokok')[0] }}</p>
+                                @endif
+                            </div>
+
+                            <!-- Foto Profil -->
+                            <div class="space-y-2 md:col-span-2">
+                                <label class="block text-sm font-semibold text-gray-300">Foto Profil</label>
+                                <input type="file" name="fotoProfil" accept="image/*"
+                                    class="block w-full text-sm text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-indigo-600 file:text-white hover:file:bg-indigo-700 transition-all duration-200">
+                                @if(session.flashMessages && session.flashMessages.has('errors.fotoProfil'))
+                                    <p class="text-red-500 text-xs mt-1">{{ session.flashMessages.get('errors.fotoProfil')[0] }}</p>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form Footer -->
+                <div class="bg-gray-800 px-8 py-6 flex justify-end space-x-4 rounded-b-3xl border-t border-gray-700">
+                    <a href="{{ route('pegawai.index') }}"
+                        class="inline-flex items-center px-5 py-2.5 rounded-lg border border-gray-600 bg-gray-700 text-gray-300 font-semibold hover:bg-gray-600 transition-all duration-200">
+                        Batal
+                    </a>
+                    <button type="submit"
+                        class="inline-flex items-center px-6 py-2.5 rounded-lg bg-indigo-500 text-white font-semibold hover:bg-indigo-600 transition-all duration-200 shadow-lg">
+                        Simpan
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+@endslot
+
+@slot('scripts')
+<script>
+function togglePassword() {
+    const input = document.getElementById('password');
+    const icon = document.getElementById('eye-icon');
+    if (input.type === 'password') {
+        input.type = 'text';
+        icon.classList.add('text-indigo-600');
+    } else {
+        input.type = 'password';
+        icon.classList.remove('text-indigo-600');
+    }
+}
+</script>
+@endslot
+
+@endcomponent

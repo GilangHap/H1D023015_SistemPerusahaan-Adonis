@@ -1,0 +1,285 @@
+@component('layouts/app', { title: 'Daftar Pegawai' })
+
+@slot('main')
+<div class="min-h-screen bg-slate-900 relative overflow-hidden">
+    <!-- Floating Background Orbs -->
+    <div class="absolute top-0 left-0 -z-10">
+        <div class="floating-orb-bg floating-orb-bg-1"></div>
+        <div class="floating-orb-bg floating-orb-bg-2"></div>
+        <div class="floating-orb-bg floating-orb-bg-3"></div>
+        <div class="floating-orb-bg floating-orb-bg-4"></div>
+    </div>
+
+    <div class="relative z-10 py-8 px-8 max-w-full mx-auto">
+        <!-- Header Section -->
+        <div class="mb-8 flex items-center justify-between">
+            <div class="space-y-3">
+                <div class="flex items-center gap-4">
+                    <div class="h-12 w-12 bg-gradient-to-tr from-purple-500 via-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center pulse-glow">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
+                        </svg>
+                    </div>
+                    <h1 class="text-4xl font-bold text-gradient">
+                        Data Pegawai
+                    </h1>
+                </div>
+                <p class="text-slate-400 ml-16">Manajemen daftar pegawai aktif di sistem</p>
+            </div>
+            
+            <a href="{{ route('pegawai.create') }}" class="group relative overflow-hidden">
+                <div class="absolute inset-0 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 rounded-2xl blur opacity-25 group-hover:opacity-40 transition-opacity duration-300"></div>
+                <div class="relative flex items-center gap-3 px-6 py-4 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl text-white font-semibold shadow-2xl hover:shadow-blue-500/25 hover:scale-[1.02] transition-all duration-300">
+                    <div class="p-1 rounded-lg bg-white/20">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                        </svg>
+                    </div>
+                    <span>Tambah Pegawai</span>
+                </div>
+            </a>
+        </div>
+
+        <!-- Main Content Card -->
+        <div class="glass-effect neo-shadow rounded-3xl p-6 relative overflow-hidden w-full">
+            <!-- Card Header -->
+            <div class="flex items-center justify-between mb-6 pb-4 border-b border-slate-700/50">
+                <div class="flex items-center gap-3">
+                    <div class="w-2 h-8 bg-gradient-to-b from-blue-500 to-purple-500 rounded-full"></div>
+                    <h2 class="text-xl font-semibold text-white">Daftar Pegawai</h2>
+                </div>
+                <div class="text-sm text-slate-400">
+                    Total: <span class="text-blue-400 font-semibold">{{ pegawais.length }}</span> pegawai
+                </div>
+            </div>
+
+            <!-- Table Container -->
+            <div class="overflow-x-auto">
+                <table class="min-w-full">
+                    <thead>
+                        <tr class="border-b border-slate-700/50">
+                            <th class="px-6 py-4 text-left text-sm font-semibold text-slate-300 uppercase tracking-wider">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-1 h-4 bg-gradient-to-b from-blue-500 to-purple-500 rounded-full"></div>
+                                    NIP
+                                </div>
+                            </th>
+                            <th class="px-6 py-4 text-left text-sm font-semibold text-slate-300 uppercase tracking-wider">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-1 h-4 bg-gradient-to-b from-purple-500 to-pink-500 rounded-full"></div>
+                                    Nama
+                                </div>
+                            </th>
+                            <th class="px-6 py-4 text-left text-sm font-semibold text-slate-300 uppercase tracking-wider">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-1 h-4 bg-gradient-to-b from-pink-500 to-orange-500 rounded-full"></div>
+                                    Jabatan
+                                </div>
+                            </th>
+                            <th class="px-6 py-4 text-left text-sm font-semibold text-slate-300 uppercase tracking-wider">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-1 h-4 bg-gradient-to-b from-orange-500 to-yellow-500 rounded-full"></div>
+                                    Unit Kerja
+                                </div>
+                            </th>
+                            <th class="px-6 py-4 text-center text-sm font-semibold text-slate-300 uppercase tracking-wider">
+                                <div class="flex items-center justify-center gap-2">
+                                    <div class="w-1 h-4 bg-gradient-to-b from-cyan-500 to-blue-500 rounded-full"></div>
+                                    Aksi
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-700/30">
+                        @if(pegawais.length === 0)
+                            <tr>
+                                <td colspan="7" class="py-16 text-center text-slate-400">
+                                    <div class="w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-slate-700 to-slate-800 rounded-3xl flex items-center justify-center">
+                                        <svg class="w-12 h-12 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                                        </svg>
+                                    </div>
+                                    <h3 class="text-xl font-semibold mb-2">Belum Ada Data Pegawai</h3>
+                                    <p class="mb-6">Silakan tambah pegawai pertama untuk memulai</p>
+                                    <a href="{{ route('pegawai.create') }}" class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-semibold hover:scale-105 transition-all duration-300">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                                        </svg>
+                                        Tambah Pegawai Pertama
+                                    </a>
+                                </td>
+                            </tr>
+                        @else
+                            @each(pegawai in pegawais)
+                                <tr class="group hover:bg-slate-800/50 transition-all duration-300 relative">
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
+                                            <span class="font-semibold text-blue-300 group-hover:text-blue-200 transition-colors">
+                                                {{ pegawai.nip }}
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-8 h-8 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-full flex items-center justify-center">
+                                                <span class="text-xs font-semibold text-purple-300">
+                                                    {{ pegawai.nama.charAt(0).toUpperCase() }}
+                                                </span>
+                                            </div>
+                                            <span class="text-white font-medium group-hover:text-slate-100 transition-colors">
+                                                {{ pegawai.nama }}
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-gradient-to-r from-pink-500/20 to-orange-500/20 border border-pink-500/30 text-pink-300 text-sm font-medium">
+                                            <div class="w-1.5 h-1.5 bg-pink-400 rounded-full"></div>
+                                            {{ pegawai.jabatan?.namaJabatan ?? '-' }}
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-gradient-to-r from-orange-500/20 to-yellow-500/20 border border-orange-500/30 text-orange-300 text-sm font-medium">
+                                            <div class="w-1.5 h-1.5 bg-orange-400 rounded-full"></div>
+                                            {{ pegawai.unitKerja?.namaUnit ?? '-' }}
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center justify-center gap-2">
+                                            <!-- View Button -->
+                                            <a href="{{ route('pegawai.show', { id: pegawai.id }) }}" class="group/btn relative overflow-hidden">
+                                                <div class="absolute inset-0 bg-gradient-to-r from-emerald-600 to-teal-600 rounded-xl opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"></div>
+                                                <div class="relative flex items-center gap-2 px-3 py-2 bg-gradient-to-r from-emerald-500/20 to-teal-500/20 border border-emerald-500/30 rounded-xl text-emerald-300 hover:text-white transition-all duration-300 hover:scale-105">
+                                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                                                    </svg>
+                                                    <span class="text-xs font-semibold">Lihat</span>
+                                                </div>
+                                            </a>
+                                            <!-- Edit Button -->
+                                            <a href="{{ route('pegawai.edit', { id: pegawai.id }) }}" class="group/btn relative overflow-hidden">
+                                                <div class="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"></div>
+                                                <div class="relative flex items-center gap-2 px-3 py-2 bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-blue-500/30 rounded-xl text-blue-300 hover:text-white transition-all duration-300 hover:scale-105">
+                                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536M9 11l6 6M3 21h6l11-11a2.828 2.828 0 00-4-4L5 17v4z"/>
+                                                    </svg>
+                                                    <span class="text-xs font-semibold">Edit</span>
+                                                </div>
+                                            </a>
+                                            <!-- Delete Button -->
+                                            <form action="{{ route('pegawai.destroy', { id: pegawai.id }) }}?_method=DELETE" method="POST" class="inline-block" onsubmit="return confirm('Anda yakin ingin menghapus pegawai ini?')">
+                                                {{ csrfField() }}
+                                                <button type="submit" class="group/btn relative overflow-hidden">
+                                                    <div class="absolute inset-0 bg-gradient-to-r from-red-600 to-pink-600 rounded-xl opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"></div>
+                                                    <div class="relative flex items-center gap-2 px-3 py-2 bg-gradient-to-r from-red-500/20 to-pink-500/20 border border-red-500/30 rounded-xl text-red-300 hover:text-white transition-all duration-300 hover:scale-105">
+                                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                                                        </svg>
+                                                        <span class="text-xs font-semibold">Hapus</span>
+                                                    </div>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endeach
+                        @endif
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+@endslot
+
+
+@slot('head')
+    <style>
+        .floating-orb-bg {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
+            animation: float-bg 8s ease-in-out infinite;
+        }
+
+        .floating-orb-bg-1 {
+            width: 300px;
+            height: 300px;
+            top: 10%;
+            right: 10%;
+            animation-delay: 0s;
+        }
+
+        .floating-orb-bg-2 {
+            width: 200px;
+            height: 200px;
+            top: 60%;
+            right: 60%;
+            background: radial-gradient(circle, rgba(168, 85, 247, 0.15) 0%, transparent 70%);
+            animation-delay: 2s;
+        }
+
+        .floating-orb-bg-3 {
+            width: 150px;
+            height: 150px;
+            top: 30%;
+            left: 15%;
+            background: radial-gradient(circle, rgba(244, 114, 182, 0.15) 0%, transparent 70%);
+            animation-delay: 4s;
+        }
+
+        .floating-orb-bg-4 {
+            width: 250px;
+            height: 250px;
+            bottom: 20%;
+            left: 20%;
+            background: radial-gradient(circle, rgba(34, 197, 94, 0.1) 0%, transparent 70%);
+            animation-delay: 6s;
+        }
+
+        @keyframes float-bg {
+            0%, 100% { 
+                transform: translateY(0px) rotate(0deg); 
+                opacity: 0.3;
+            }
+            50% { 
+                transform: translateY(-30px) rotate(180deg); 
+                opacity: 0.1;
+            }
+        }
+
+        /* Enhanced glass effect */
+        .glass-effect {
+            backdrop-filter: blur(20px);
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+        }
+
+        /* Pulse glow animation */
+        .pulse-glow {
+            animation: pulse-glow 2s infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { 
+                box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+                transform: scale(1);
+            }
+            50% { 
+                box-shadow: 0 0 30px rgba(59, 130, 246, 0.6);
+                transform: scale(1.05);
+            }
+        }
+
+        /* Neo shadow */
+        .neo-shadow {
+            box-shadow: 
+                inset 8px 8px 16px rgba(0, 0, 0, 0.3),
+                inset -8px -8px 16px rgba(30, 41, 59, 0.2),
+                0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+@endslot
+
+@endcomponent

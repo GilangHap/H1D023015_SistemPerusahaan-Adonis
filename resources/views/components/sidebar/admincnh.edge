@@ -1,0 +1,105 @@
+<div 
+  class="h-screen w-72 bg-gradient-to-br from-slate-900 to-slate-800 border-r border-slate-700/30 shadow-xl flex flex-col fixed transition-transform duration-300 ease-in-out"
+>
+  <div class="flex flex-col items-center pt-8 pb-6">
+    <div class="flex items-center gap-3 mb-6">
+      <div class="h-10 w-10 bg-gradient-to-tr from-cyan-500 to-blue-600 rounded-lg flex items-center justify-center shadow-lg shadow-blue-600/20 animate-pulse-slow">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd" />
+        </svg>
+      </div>
+      <h1 class="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600">
+        Admin Portal
+      </h1>
+    </div>
+    <div class="relative group">
+      <img 
+        src="{{ '/images/default-avatar.svg' }}" 
+        alt="Profile Picture" 
+        class="w-20 h-20 rounded-full object-cover ring-2 ring-blue-500/50 shadow-md shadow-blue-500/10 hover:ring-blue-400 transition-all duration-300"
+      >
+      
+      <a href="#" class="absolute bottom-0 right-0 bg-gradient-to-r from-blue-600 to-cyan-500 text-white p-1.5 rounded-full shadow-lg transform transition-transform hover:scale-110">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+        </svg>
+      </a>
+    </div>
+    <h2 class="mt-4 font-medium text-white">{{ auth.user?.nama }}</h2>
+    <span class="text-sm text-slate-300">{{ auth.user?.position?.name || 'Administrator' }}</span>
+    <div class="mt-2 px-3 py-1 rounded-full bg-blue-500/20 text-xs text-blue-300 border border-blue-500/30">
+      Online
+    </div>
+  </div>
+  
+  <div class="px-6">
+    <div class="h-px bg-gradient-to-r from-transparent via-slate-400/20 to-transparent"></div>
+  </div>
+  
+  <nav class="flex-1 pt-6 px-4 pb-4 space-y-2 overflow-y-auto scrollbar-hide">
+    <a 
+      href="{{ route('dashboard') }}" 
+      class="flex items-center px-4 py-3 text-slate-200 rounded-xl hover:bg-slate-700/50 hover:scale-[1.02] transition-all duration-200"
+    >
+      <!-- icon -->
+      <span class="font-medium text-sm">Dashboard</span>
+    </a>
+    <a 
+      href="{{ route('pegawai.index') }}" 
+      class="flex items-center px-4 py-3 text-slate-200 rounded-xl hover:bg-slate-700/50 hover:scale-[1.02] transition-all duration-200"
+    >
+      <!-- icon -->
+      <span class="font-medium text-sm flex-1 text-left">Manajemen Pegawai</span>
+    </a>
+    <a 
+      href="{{ route('jabatan.index') }}" 
+      class="flex items-center px-4 py-3 text-slate-200 rounded-xl hover:bg-slate-700/50 hover:scale-[1.02] transition-all duration-200"
+    >
+      <!-- icon -->
+      <span class="font-medium text-sm flex-1 text-left">Jabatan</span>
+    </a>
+    <a 
+      href="{{ route('unit_kerja.index') }}" 
+      class="flex items-center px-4 py-3 text-slate-200 rounded-xl hover:bg-slate-700/50 hover:scale-[1.02] transition-all duration-200"
+    >
+      <!-- icon -->
+      <span class="font-medium text-sm flex-1 text-left">Unit Kerja</span>
+    </a>
+    <a 
+      href="{{ route('cuti.index') }}" 
+      class="flex items-center px-4 py-3 text-slate-200 rounded-xl hover:bg-slate-700/50 hover:scale-[1.02] transition-all duration-200"
+    >
+      <!-- icon -->
+      <span class="font-medium text-sm flex-1 text-left">Cuti</span>
+    </a>
+    <a 
+      href="{{ route('cuti.verifikasi') }}" 
+      class="flex items-center px-4 py-3 text-slate-200 rounded-xl hover:bg-slate-700/50 hover:scale-[1.02] transition-all duration-200"
+    >
+      <!-- icon -->
+      <span class="font-medium text-sm flex-1 text-left">Verifikasi Cuti</span>
+    </a>
+    <a 
+      href="{{ route('absensi.index') }}" 
+      class="flex items-center px-4 py-3 text-slate-200 rounded-xl hover:bg-slate-700/50 hover:scale-[1.02] transition-all duration-200"
+    >
+      <!-- icon -->
+      <span class="font-medium text-sm flex-1 text-left">Absensi</span>
+    </a>
+    <a 
+      href="{{ route('absensi.history') }}" 
+      class="flex items-center px-4 py-3 text-slate-200 rounded-xl hover:bg-slate-700/50 hover:scale-[1.02] transition-all duration-200"
+    >
+      <!-- icon -->
+      <span class="font-medium text-sm flex-1 text-left">History Absensi</span>
+    </a>
+    <form action="{{ route('logout') }}" method="POST" class="mt-4">
+      {{ csrfField() }}
+      <button type="submit" class="w-full flex items-center justify-center px-4 py-3 text-white bg-gradient-to-r from-violet-600 to-indigo-500 rounded-xl shadow-lg hover:shadow-indigo-500/20 hover:scale-[1.02] transition-all duration-300 focus:outline-none">
+        <!-- icon -->
+        <span class="font-medium text-sm">Logout</span>
+      </button>
+    </form>
+  </nav>
+</div>

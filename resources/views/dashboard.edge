@@ -1,0 +1,486 @@
+@component('layouts/app', { title: 'Dashboard' })
+
+  @slot('main')
+    <div class="min-h-screen bg-slate-900 relative overflow-hidden">
+      <!-- Enhanced Background Effects -->
+      <div class="absolute inset-0 overflow-hidden">
+        <!-- Animated gradient orbs -->
+        <div class="absolute top-10 left-10 w-96 h-96 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10 rounded-full blur-3xl animate-pulse"></div>
+        <div class="absolute top-1/2 right-20 w-80 h-80 bg-gradient-to-r from-emerald-500/10 via-cyan-500/10 to-blue-500/10 rounded-full blur-3xl animate-pulse" style="animation-delay: 2s;"></div>
+        <div class="absolute bottom-20 left-1/3 w-72 h-72 bg-gradient-to-r from-purple-500/10 via-pink-500/10 to-orange-500/10 rounded-full blur-3xl animate-pulse" style="animation-delay: 4s;"></div>
+        
+        <!-- Grid pattern overlay -->
+        <div class="absolute inset-0 bg-[linear-gradient(rgba(148,163,184,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(148,163,184,0.03)_1px,transparent_1px)] bg-[size:50px_50px]"></div>
+      </div>
+
+      <div class="relative z-10 py-8 px-8">
+        <!-- Enhanced Header Section -->
+        <div class="mb-12">
+          <div class="flex items-center space-x-6 mb-6">
+            <div class="relative">
+              <div class="w-1 h-16 bg-gradient-to-b from-blue-400 via-purple-500 to-pink-500 rounded-full"></div>
+              <div class="absolute inset-0 w-1 h-16 bg-gradient-to-b from-blue-400 via-purple-500 to-pink-500 rounded-full blur-sm opacity-60"></div>
+            </div>
+            <div>
+              <h1 class="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-blue-200 to-purple-200 tracking-tight mb-3">
+                Dashboard Overview
+              </h1>
+              <p class="text-slate-300 text-lg font-medium flex items-center gap-2">
+                <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                Sistem manajemen kepegawaian terintegrasi
+              </p>
+            </div>
+          </div>
+          
+          <!-- Real-time status indicator -->
+          <div class="flex items-center gap-4 mt-4">
+            <div class="flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20">
+              <div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
+              <span class="text-sm font-medium text-emerald-300">System Online</span>
+            </div>
+            <div class="flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20">
+              <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+              <span class="text-sm font-medium text-blue-300">Real-time Data</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Enhanced Stats Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-12">
+          <!-- Total Pegawai -->
+          <div class="group relative">
+            <div class="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-blue-400/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+            <div class="relative glass-effect rounded-2xl p-6 border border-slate-700/50 shadow-2xl transform transition-all duration-500 hover:scale-[1.02] hover:shadow-blue-500/10 neo-shadow">
+              <div class="flex items-center justify-between mb-4">
+                <div class="p-3 rounded-xl bg-gradient-to-br from-blue-500/20 to-blue-600/20 border border-blue-500/30">
+                  <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87m9-4a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                  </svg>
+                </div>
+                <div class="text-right">
+                  <div class="text-3xl font-black text-white mb-1">{{ pegawaiCount }}</div>
+                  <div class="text-xs text-blue-300 font-medium">+2.5% dari bulan lalu</div>
+                </div>
+              </div>
+              <div class="space-y-2">
+                <h3 class="text-slate-200 font-semibold">Total Pegawai</h3>
+                <div class="w-full bg-slate-700/50 rounded-full h-1.5">
+                  <div class="bg-gradient-to-r from-blue-500 to-blue-400 h-1.5 rounded-full" style="width: 85%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Departemen -->
+          <div class="group relative">
+            <div class="absolute inset-0 bg-gradient-to-r from-emerald-600/20 to-emerald-400/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+            <div class="relative glass-effect rounded-2xl p-6 border border-slate-700/50 shadow-2xl transform transition-all duration-500 hover:scale-[1.02] hover:shadow-emerald-500/10 neo-shadow">
+              <div class="flex items-center justify-between mb-4">
+                <div class="p-3 rounded-xl bg-gradient-to-br from-emerald-500/20 to-emerald-600/20 border border-emerald-500/30">
+                  <svg class="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                  </svg>
+                </div>
+                <div class="text-right">
+                  <div class="text-3xl font-black text-white mb-1">{{ departemenCount }}</div>
+                  <div class="text-xs text-emerald-300 font-medium">Aktif</div>
+                </div>
+              </div>
+              <div class="space-y-2">
+                <h3 class="text-slate-200 font-semibold">Departemen</h3>
+                <div class="w-full bg-slate-700/50 rounded-full h-1.5">
+                  <div class="bg-gradient-to-r from-emerald-500 to-emerald-400 h-1.5 rounded-full" style="width: 70%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Jabatan -->
+          <div class="group relative">
+            <div class="absolute inset-0 bg-gradient-to-r from-amber-600/20 to-amber-400/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+            <div class="relative glass-effect rounded-2xl p-6 border border-slate-700/50 shadow-2xl transform transition-all duration-500 hover:scale-[1.02] hover:shadow-amber-500/10 neo-shadow">
+              <div class="flex items-center justify-between mb-4">
+                <div class="p-3 rounded-xl bg-gradient-to-br from-amber-500/20 to-amber-600/20 border border-amber-500/30">
+                  <svg class="w-6 h-6 text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0H8m8 0v6a2 2 0 01-2 2H10a2 2 0 01-2-2V6m8 0H8"></path>
+                  </svg>
+                </div>
+                <div class="text-right">
+                  <div class="text-3xl font-black text-white mb-1">{{ jabatanCount }}</div>
+                  <div class="text-xs text-amber-300 font-medium">Posisi</div>
+                </div>
+              </div>
+              <div class="space-y-2">
+                <h3 class="text-slate-200 font-semibold">Posisi Jabatan</h3>
+                <div class="w-full bg-slate-700/50 rounded-full h-1.5">
+                  <div class="bg-gradient-to-r from-amber-500 to-amber-400 h-1.5 rounded-full" style="width: 90%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pengajuan Cuti -->
+          <div class="group relative">
+            <div class="absolute inset-0 bg-gradient-to-r from-purple-600/20 to-purple-400/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+            <div class="relative glass-effect rounded-2xl p-6 border border-slate-700/50 shadow-2xl transform transition-all duration-500 hover:scale-[1.02] hover:shadow-purple-500/10 neo-shadow">
+              <div class="flex items-center justify-between mb-4">
+                <div class="p-3 rounded-xl bg-gradient-to-br from-purple-500/20 to-purple-600/20 border border-purple-500/30">
+                  <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                  </svg>
+                </div>
+                <div class="text-right">
+                  <div class="text-3xl font-black text-white mb-1">{{ cutiCount }}</div>
+                  <div class="text-xs text-purple-300 font-medium">Total bulan ini</div>
+                </div>
+              </div>
+              <div class="space-y-2">
+                <h3 class="text-slate-200 font-semibold">Pengajuan Cuti</h3>
+                <div class="w-full bg-slate-700/50 rounded-full h-1.5">
+                  <div class="bg-gradient-to-r from-purple-500 to-purple-400 h-1.5 rounded-full" style="width: 65%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Absensi Hari Ini -->
+          <div class="group relative">
+            <div class="absolute inset-0 bg-gradient-to-r from-rose-600/20 to-rose-400/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+            <div class="relative glass-effect rounded-2xl p-6 border border-slate-700/50 shadow-2xl transform transition-all duration-500 hover:scale-[1.02] hover:shadow-rose-500/10 neo-shadow">
+              <div class="flex items-center justify-between mb-4">
+                <div class="p-3 rounded-xl bg-gradient-to-br from-rose-500/20 to-rose-600/20 border border-rose-500/30">
+                  <svg class="w-6 h-6 text-rose-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>
+                </div>
+                <div class="text-right">
+                  <div class="text-3xl font-black text-white mb-1">{{ absensiCount }}</div>
+                  <div class="text-xs text-rose-300 font-medium">Hari ini</div>
+                </div>
+              </div>
+              <div class="space-y-2">
+                <h3 class="text-slate-200 font-semibold">Absensi Hari Ini</h3>
+                <div class="w-full bg-slate-700/50 rounded-full h-1.5">
+                  <div class="bg-gradient-to-r from-rose-500 to-rose-400 h-1.5 rounded-full" style="width: 88%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Cuti Pending -->
+          <div class="group relative">
+            <div class="absolute inset-0 bg-gradient-to-r from-yellow-600/20 to-yellow-400/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+            <div class="relative glass-effect rounded-2xl p-6 border border-slate-700/50 shadow-2xl transform transition-all duration-500 hover:scale-[1.02] hover:shadow-yellow-500/10 neo-shadow">
+              <div class="flex items-center justify-between mb-4">
+                <div class="p-3 rounded-xl bg-gradient-to-br from-yellow-500/20 to-yellow-600/20 border border-yellow-500/30">
+                  <svg class="w-6 h-6 text-yellow-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>
+                </div>
+                <div class="text-right">
+                  <div class="text-3xl font-black text-white mb-1">{{ cutiPending }}</div>
+                  <div class="text-xs text-yellow-300 font-medium">Menunggu</div>
+                </div>
+              </div>
+              <div class="space-y-2">
+                <h3 class="text-slate-200 font-semibold">Cuti Pending</h3>
+                <div class="w-full bg-slate-700/50 rounded-full h-1.5">
+                  <div class="bg-gradient-to-r from-yellow-500 to-yellow-400 h-1.5 rounded-full" style="width: 35%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Cuti Disetujui -->
+          <div class="group relative">
+            <div class="absolute inset-0 bg-gradient-to-r from-green-600/20 to-green-400/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+            <div class="relative glass-effect rounded-2xl p-6 border border-slate-700/50 shadow-2xl transform transition-all duration-500 hover:scale-[1.02] hover:shadow-green-500/10 neo-shadow">
+              <div class="flex items-center justify-between mb-4">
+                <div class="p-3 rounded-xl bg-gradient-to-br from-green-500/20 to-green-600/20 border border-green-500/30">
+                  <svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                </div>
+                <div class="text-right">
+                  <div class="text-3xl font-black text-white mb-1">{{ cutiApproved }}</div>
+                  <div class="text-xs text-green-300 font-medium">Tahun ini</div>
+                </div>
+              </div>
+              <div class="space-y-2">
+                <h3 class="text-slate-200 font-semibold">Cuti Disetujui</h3>
+                <div class="w-full bg-slate-700/50 rounded-full h-1.5">
+                  <div class="bg-gradient-to-r from-green-500 to-green-400 h-1.5 rounded-full" style="width: 78%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pegawai Absen Masuk -->
+          <div class="group relative">
+            <div class="absolute inset-0 bg-gradient-to-r from-indigo-600/20 to-indigo-400/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+            <div class="relative glass-effect rounded-2xl p-6 border border-slate-700/50 shadow-2xl transform transition-all duration-500 hover:scale-[1.02] hover:shadow-indigo-500/10 neo-shadow">
+              <div class="flex items-center justify-between mb-4">
+                <div class="p-3 rounded-xl bg-gradient-to-br from-indigo-500/20 to-indigo-600/20 border border-indigo-500/30">
+                  <svg class="w-6 h-6 text-indigo-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
+                  </svg>
+                </div>
+                <div class="text-right">
+                  <div class="text-3xl font-black text-white mb-1">{{ pegawaiAbsenMasuk }}</div>
+                  <div class="text-xs text-indigo-300 font-medium">Check-in hari ini</div>
+                </div>
+              </div>
+              <div class="space-y-2">
+                <h3 class="text-slate-200 font-semibold">Absen Masuk</h3>
+                <div class="w-full bg-slate-700/50 rounded-full h-1.5">
+                  <div class="bg-gradient-to-r from-indigo-500 to-indigo-400 h-1.5 rounded-full" style="width: 92%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Enhanced Quick Actions Section -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12">
+          <!-- Quick Actions Card -->
+          <div class="group relative">
+            <div class="absolute inset-0 bg-gradient-to-r from-cyan-600/20 to-blue-600/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+            <div class="relative glass-effect rounded-2xl p-8 border border-slate-700/50 shadow-2xl neo-shadow">
+              <div class="flex items-center gap-4 mb-6">
+                <div class="p-4 rounded-xl bg-gradient-to-br from-cyan-500/20 to-blue-500/20 border border-cyan-500/30">
+                  <svg class="w-8 h-8 text-cyan-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="text-2xl font-bold text-white mb-1">Quick Actions</h3>
+                  <p class="text-slate-300">Akses cepat ke fitur utama</p>
+                </div>
+              </div>
+              
+              <a href="{{ route('pegawai.create') }}" >
+              <div class="grid grid-cols-2 gap-4">
+                <button class="flex items-center gap-3 p-4 rounded-xl bg-gradient-to-r from-blue-600/10 to-purple-600/10 border border-blue-500/20 hover:border-blue-400/40 transition-all duration-300 hover:scale-105 group/btn">
+                  <svg class="w-5 h-5 text-blue-400 group-hover/btn:text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+                  </svg>
+                  <span class="text-sm font-medium text-slate-200 group-hover/btn:text-white">Tambah Pegawai</span>
+                </button>
+                </a>
+                
+                <button class="flex items-center gap-3 p-4 rounded-xl bg-gradient-to-r from-emerald-600/10 to-teal-600/10 border border-emerald-500/20 hover:border-emerald-400/40 transition-all duration-300 hover:scale-105 group/btn">
+                  <svg class="w-5 h-5 text-emerald-400 group-hover/btn:text-emerald-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>
+                  <span class="text-sm font-medium text-slate-200 group-hover/btn:text-white">Verifikasi Cuti</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- System Status Card -->
+          <div class="group relative">
+            <div class="absolute inset-0 bg-gradient-to-r from-emerald-600/20 to-teal-600/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+            <div class="relative glass-effect rounded-2xl p-8 border border-slate-700/50 shadow-2xl neo-shadow">
+              <div class="flex items-center justify-between mb-6">
+                <div>
+                  <h3 class="text-2xl font-bold text-white mb-1">System Status</h3>
+                  <p class="text-slate-300">Monitoring sistem real-time</p>
+                </div>
+                <div class="flex items-center gap-2">
+                  <div class="w-3 h-3 bg-emerald-400 rounded-full animate-pulse"></div>
+                  <span class="text-emerald-300 font-medium">All Systems Operational</span>
+                </div>
+              </div>
+              
+              <div class="space-y-4">
+                <div class="flex items-center justify-between">
+                  <span class="text-slate-300">Database</span>
+                  <div class="flex items-center gap-2">
+                    <div class="w-2 h-2 bg-emerald-400 rounded-full"></div>
+                    <span class="text-emerald-300 text-sm">Online</span>
+                  </div>
+                </div>
+                <div class="flex items-center justify-between">
+                  <span class="text-slate-300">API Services</span>
+                  <div class="flex items-center gap-2">
+                    <div class="w-2 h-2 bg-emerald-400 rounded-full"></div>
+                    <span class="text-emerald-300 text-sm">Running</span>
+                  </div>
+                </div>
+                <div class="flex items-center justify-between">
+                  <span class="text-slate-300">Security</span>
+                  <div class="flex items-center gap-2">
+                    <div class="w-2 h-2 bg-emerald-400 rounded-full"></div>
+                    <span class="text-emerald-300 text-sm">Protected</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Enhanced Bottom Info Section -->
+        <div class="glass-effect rounded-2xl p-8 border border-slate-700/50 shadow-2xl neo-shadow">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-6">
+              <div class="p-4 rounded-xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 border border-purple-500/30">
+                <svg class="w-8 h-8 text-purple-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-2xl font-bold text-white mb-2">Sistem Manajemen HR</h3>
+                <p class="text-slate-300 font-medium">Dashboard terintegrasi untuk mengelola data kepegawaian dengan efisien dan modern</p>
+              </div>
+            </div>
+            <div class="hidden lg:flex items-center gap-6">
+              <div class="text-right">
+                <div class="text-sm text-slate-400">Last Updated</div>
+                <div class="text-white font-semibold">{{ new Date().toLocaleString() }}</div>
+              </div>
+              <div class="w-px h-12 bg-slate-600"></div>
+              <div class="flex items-center gap-3">
+                <div class="w-3 h-3 bg-emerald-400 rounded-full animate-pulse"></div>
+                <div>
+                  <div class="text-sm text-slate-400">Status</div>
+                  <div class="text-emerald-300 font-semibold">Operational</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Activity Section -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 my-8">
+          <!-- Recent Activities -->
+          <div class="glass-effect rounded-2xl p-6 border border-slate-700/50 shadow-2xl neo-shadow">
+            <div class="flex items-center gap-4 mb-6">
+              <div class="p-3 rounded-xl bg-gradient-to-br from-indigo-500/20 to-purple-500/20 border border-indigo-500/30">
+                <svg class="w-6 h-6 text-indigo-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-white">Recent Activities</h3>
+                <p class="text-slate-400 text-sm">Latest system activities</p>
+              </div>
+            </div>
+            
+            <div class="space-y-4">
+              <div class="flex items-center gap-4 p-4 rounded-xl bg-slate-800/50 border border-slate-700/30">
+                <div class="w-2 h-2 bg-green-400 rounded-full"></div>
+                <div class="flex-1">
+                  <p class="text-slate-200 text-sm">New employee registered</p>
+                  <p class="text-slate-400 text-xs">2 minutes ago</p>
+                </div>
+              </div>
+              
+              <div class="flex items-center gap-4 p-4 rounded-xl bg-slate-800/50 border border-slate-700/30">
+                <div class="w-2 h-2 bg-blue-400 rounded-full"></div>
+                <div class="flex-1">
+                  <p class="text-slate-200 text-sm">Leave request approved</p>
+                  <p class="text-slate-400 text-xs">15 minutes ago</p>
+                </div>
+              </div>
+              
+              <div class="flex items-center gap-4 p-4 rounded-xl bg-slate-800/50 border border-slate-700/30">
+                <div class="w-2 h-2 bg-yellow-400 rounded-full"></div>
+                <div class="flex-1">
+                  <p class="text-slate-200 text-sm">Attendance report generated</p>
+                  <p class="text-slate-400 text-xs">1 hour ago</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Department Overview -->
+          <div class="glass-effect rounded-2xl p-6 border border-slate-700/50 shadow-2xl neo-shadow">
+            <div class="flex items-center gap-4 mb-6">
+              <div class="p-3 rounded-xl bg-gradient-to-br from-emerald-500/20 to-teal-500/20 border border-emerald-500/30">
+                <svg class="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-white">Department Overview</h3>
+                <p class="text-slate-400 text-sm">Employee distribution</p>
+              </div>
+            </div>
+            
+            <div class="space-y-4">
+              <div class="flex items-center justify-between p-4 rounded-xl bg-slate-800/50 border border-slate-700/30">
+                <div class="flex items-center gap-3">
+                  <div class="w-3 h-3 bg-blue-400 rounded-full"></div>
+                  <span class="text-slate-200 font-medium">Engineering</span>
+                </div>
+                <div class="text-right">
+                  <div class="text-white font-bold">45</div>
+                  <div class="text-slate-400 text-xs">employees</div>
+                </div>
+              </div>
+              
+              <div class="flex items-center justify-between p-4 rounded-xl bg-slate-800/50 border border-slate-700/30">
+                <div class="flex items-center gap-3">
+                  <div class="w-3 h-3 bg-emerald-400 rounded-full"></div>
+                  <span class="text-slate-200 font-medium">Marketing</span>
+                </div>
+                <div class="text-right">
+                  <div class="text-white font-bold">28</div>
+                  <div class="text-slate-400 text-xs">employees</div>
+                </div>
+              </div>
+              
+              <div class="flex items-center justify-between p-4 rounded-xl bg-slate-800/50 border border-slate-700/30">
+                <div class="flex items-center gap-3">
+                  <div class="w-3 h-3 bg-purple-400 rounded-full"></div>
+                  <span class="text-slate-200 font-medium">HR</span>
+                </div>
+                <div class="text-right">
+                  <div class="text-white font-bold">12</div>
+                  <div class="text-slate-400 text-xs">employees</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer Info -->
+        <div class="text-center py-6">
+          <p class="text-slate-400 text-sm">
+            © 2024 HR Management System. Powered by modern technology.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <style>
+      .glass-effect {
+        background: rgba(30, 41, 59, 0.4);
+        backdrop-filter: blur(16px) saturate(200%);
+        -webkit-backdrop-filter: blur(16px) saturate(200%);
+        border: 1px solid rgba(255, 255, 255, 0.125);
+      }
+      
+      .neo-shadow {
+        box-shadow: 
+          0 8px 32px 0 rgba(0, 0, 0, 0.37),
+          inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      }
+      
+      @keyframes pulse {
+        0%, 100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.5;
+        }
+      }
+    </style>
+  @endslot
+
+@endcomponent

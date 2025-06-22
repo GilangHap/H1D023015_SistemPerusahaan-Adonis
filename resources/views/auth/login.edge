@@ -1,0 +1,43 @@
+@component('layouts/auth', { title: 'Login', subtitle: 'Masuk ke akun Pegawai' })
+
+@slot('main')
+    <form method="POST" action="/login" class="space-y-7">
+        {{ csrfField() }}
+        <div>
+            <label for="nip" class="block text-slate-400 font-semibold mb-2">NIP</label>
+            <input
+                type="text"
+                id="nip"
+                name="nip"
+                required
+                placeholder="Masukkan NIP Anda"
+                autocomplete="username"
+                class="w-full px-4 py-3 rounded-xl bg-slate-800 border border-slate-700 text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500 transition placeholder:text-slate-500 font-medium"
+            >
+        </div>
+        <div>
+            <label for="password" class="block text-slate-400 font-semibold mb-2">Password</label>
+            <input
+                type="password"
+                id="password"
+                name="password"
+                required
+                placeholder="Masukkan password Anda"
+                autocomplete="current-password"
+                class="w-full px-4 py-3 rounded-xl bg-slate-800 border border-slate-700 text-slate-100 focus:outline-none focus:ring-2 focus:ring-purple-500 transition placeholder:text-slate-500 font-medium"
+            >
+        </div>
+        <button
+            type="submit"
+            class="w-full py-3 rounded-xl bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white font-bold shadow-lg hover:from-blue-700 hover:to-pink-700 transition-all duration-200 text-lg tracking-wide"
+        >
+            Login
+        </button>
+    </form>
+@endslot
+
+@slot('authLink')
+    <a href="/register" class="text-blue-400 hover:underline">Belum punya akun? Register di sini</a>
+@endslot
+
+@endcomponent

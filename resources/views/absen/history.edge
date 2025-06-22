@@ -1,0 +1,220 @@
+@component('layouts/app', { title: 'History Absensi' })
+
+@slot('sidebar')
+    @include('components/sidebar/admin')
+@endslot
+
+@slot('main')
+<div class="min-h-screen bg-slate-900 relative overflow-hidden">
+    <!-- Floating Background Orbs -->
+    <div class="absolute top-0 left-0 -z-10">
+        <div class="floating-orb-bg floating-orb-bg-1"></div>
+        <div class="floating-orb-bg floating-orb-bg-2"></div>
+        <div class="floating-orb-bg floating-orb-bg-3"></div>
+        <div class="floating-orb-bg floating-orb-bg-4"></div>
+    </div>
+    <div class="relative z-10 py-12 px-8 max-w-5xl mx-auto">
+        <div class="mb-8 flex items-center gap-4">
+            <div class="h-12 w-12 bg-gradient-to-tr from-purple-500 via-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center pulse-glow shadow-lg">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-3-3v6"/>
+                </svg>
+            </div>
+            <h2 class="text-3xl font-bold text-gradient drop-shadow">History Absensi</h2>
+        </div>
+
+        <form method="GET" action="{{ route('absensi.history') }}" class="mb-8 flex flex-wrap items-center gap-3 bg-slate-800 rounded-xl p-4 shadow-inner">
+            <input type="date" name="tanggal" value="{{ tanggal ?? '' }}" class="border border-slate-700 rounded-lg px-3 py-2 bg-slate-900 text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
+            <button type="submit" class="px-5 py-2 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-semibold shadow hover:from-indigo-600 hover:to-purple-600 transition-all duration-200">
+                Filter
+            </button>
+            @if(tanggal)
+                <a href="{{ route('absensi.history') }}" class="ml-2 text-sm text-blue-400 hover:underline">Reset</a>
+            @endif
+        </form>
+
+        <div class="glass-effect neo-shadow rounded-3xl p-6 border border-slate-700/50 shadow-2xl w-full overflow-x-auto">
+            <table class="min-w-full text-sm text-left text-slate-300">
+                <thead>
+                    <tr class="border-b border-slate-700/50">
+                        <th class="px-6 py-4 font-semibold text-slate-300 uppercase tracking-wider">Tanggal</th>
+                        <th class="px-6 py-4 font-semibold text-slate-300 uppercase tracking-wider">NIP</th>
+                        <th class="px-6 py-4 font-semibold text-slate-300 uppercase tracking-wider">Nama</th>
+                        <th class="px-6 py-4 font-semibold text-slate-300 uppercase tracking-wider">Jam Masuk</th>
+                        <th class="px-6 py-4 font-semibold text-slate-300 uppercase tracking-wider">Jam Pulang</th>
+                        <th class="px-6 py-4 font-semibold text-slate-300 uppercase tracking-wider">Status</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-700/30">
+                    @if(absensis.length === 0)
+                        <tr>
+                            <td colspan="6" class="py-16 text-center text-slate-400">
+                                <div class="w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-slate-700 to-slate-800 rounded-3xl flex items-center justify-center">
+                                    <svg class="w-12 h-12 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0z"/>
+                                    </svg>
+                                </div>
+                                <h3 class="text-xl font-semibold mb-2">Tidak ada data absensi</h3>
+                                <p class="mb-6">Belum ada data absensi pada tanggal ini.</p>
+                            </td>
+                        </tr>
+                    @else
+                        @each(absen in absensis)
+                        <tr class="group hover:bg-slate-800/50 transition-all duration-300 relative">
+                            <td class="px-6 py-4 font-semibold text-blue-300 group-hover:text-blue-200 transition-colors">
+                                {{ absen.tanggal.toISODate ? absen.tanggal.toISODate() : absen.tanggal }}
+                            </td>
+                            <td class="px-6 py-4 text-slate-200">
+                                {{ absen.pegawai?.nip ?? '-' }}
+                            </td>
+                            <td class="px-6 py-4 text-slate-200">
+                                {{ absen.pegawai?.nama ?? '-' }}
+                            </td>
+                            <td class="px-6 py-4">
+                                @if(absen.jam_masuk)
+                                    <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-gradient-to-r from-emerald-500/20 to-teal-500/20 border border-emerald-500/30 text-emerald-300 text-sm font-semibold shadow">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                        </svg>
+                                        {{ absen.jam_masuk }}
+                                    </span>
+                                @else
+                                    <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-gradient-to-r from-red-500/20 to-pink-500/20 border border-red-500/30 text-red-300 text-sm font-semibold shadow">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/>
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3"/>
+                                        </svg>
+                                        Tidak Absen
+                                    </span>
+                                @endif
+                            </td>
+                            <td class="px-6 py-4">
+                                @if(absen.jam_pulang)
+                                    <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-gradient-to-r from-blue-500/20 to-cyan-500/20 border border-blue-500/30 text-blue-300 text-sm font-semibold shadow">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l-4 4m0 0l-4-4m4 4V4"/>
+                                        </svg>
+                                        {{ absen.jam_pulang }}
+                                    </span>
+                                @else
+                                    <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-gradient-to-r from-yellow-500/20 to-orange-500/20 border border-yellow-500/30 text-yellow-300 text-sm font-semibold shadow">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/>
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3"/>
+                                        </svg>
+                                        Belum Pulang
+                                    </span>
+                                @endif
+                            </td>
+                            <td class="px-6 py-4 capitalize">
+                                @if(absen.status === 'hadir')
+                                    <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-gradient-to-r from-emerald-500/20 to-teal-500/20 border border-emerald-500/30 text-emerald-300 text-sm font-semibold shadow">
+                                        Hadir
+                                    </span>
+                                @elseif(absen.status === 'izin')
+                                    <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-gradient-to-r from-blue-500/20 to-cyan-500/20 border border-blue-500/30 text-blue-300 text-sm font-semibold shadow">
+                                        Izin
+                                    </span>
+                                @elseif(absen.status === 'sakit')
+                                    <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-gradient-to-r from-yellow-500/20 to-orange-500/20 border border-yellow-500/30 text-yellow-300 text-sm font-semibold shadow">
+                                        Sakit
+                                    </span>
+                                @else
+                                    <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-gradient-to-r from-red-500/20 to-pink-500/20 border border-red-500/30 text-red-300 text-sm font-semibold shadow">
+                                        {{ absen.status ?? '-' }}
+                                    </span>
+                                @endif
+                            </td>
+                        </tr>
+                        @endeach
+                    @endif
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@endslot
+
+@slot('head')
+    <style>
+        .floating-orb-bg {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
+            animation: float-bg 8s ease-in-out infinite;
+        }
+        .floating-orb-bg-1 {
+            width: 300px;
+            height: 300px;
+            top: 10%;
+            right: 10%;
+            animation-delay: 0s;
+        }
+        .floating-orb-bg-2 {
+            width: 200px;
+            height: 200px;
+            top: 60%;
+            right: 60%;
+            background: radial-gradient(circle, rgba(168, 85, 247, 0.15) 0%, transparent 70%);
+            animation-delay: 2s;
+        }
+        .floating-orb-bg-3 {
+            width: 150px;
+            height: 150px;
+            top: 30%;
+            left: 15%;
+            background: radial-gradient(circle, rgba(244, 114, 182, 0.15) 0%, transparent 70%);
+            animation-delay: 4s;
+        }
+        .floating-orb-bg-4 {
+            width: 250px;
+            height: 250px;
+            bottom: 20%;
+            left: 20%;
+            background: radial-gradient(circle, rgba(34, 197, 94, 0.1) 0%, transparent 70%);
+            animation-delay: 6s;
+        }
+        @keyframes float-bg {
+            0%, 100% { 
+                transform: translateY(0px) rotate(0deg); 
+                opacity: 0.3;
+            }
+            50% { 
+                transform: translateY(-30px) rotate(180deg); 
+                opacity: 0.1;
+            }
+        }
+        .glass-effect {
+            backdrop-filter: blur(24px);
+            background: rgba(15, 23, 42, 0.8);
+            border: 1.5px solid rgba(148, 163, 184, 0.13);
+        }
+        .pulse-glow {
+            animation: pulse-glow 2s infinite;
+        }
+        @keyframes pulse-glow {
+            0%, 100% { 
+                box-shadow: 0 0 24px rgba(59, 130, 246, 0.5);
+                transform: scale(1);
+            }
+            50% { 
+                box-shadow: 0 0 36px rgba(59, 130, 246, 0.7);
+                transform: scale(1.07);
+            }
+        }
+        .text-gradient {
+            background: linear-gradient(135deg, #60a5fa, #a78bfa, #f472b6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .neo-shadow {
+            box-shadow: 
+                inset 8px 8px 16px rgba(0, 0, 0, 0.3),
+                inset -8px -8px 16px rgba(30, 41, 59, 0.2),
+                0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+@endslot
+
+@endcomponent

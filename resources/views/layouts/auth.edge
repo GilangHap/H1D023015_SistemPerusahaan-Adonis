@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title || 'Auth' }} - Auth</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #312e81 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+        }
+        .glass-effect {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(18px) saturate(180%);
+            -webkit-backdrop-filter: blur(18px) saturate(180%);
+            border: 1.5px solid rgba(148, 163, 184, 0.13);
+        }
+        .neo-shadow {
+            box-shadow: 
+                0 8px 32px 0 rgba(0, 0, 0, 0.37),
+                inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        }
+        .auth-gradient-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(32px);
+            opacity: 0.4;
+            z-index: 0;
+        }
+        @media (max-width: 480px) {
+            .auth-container {
+                padding: 18px 4px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Orbs -->
+    <div class="auth-gradient-orb" style="top: -80px; left: -80px; width: 320px; height: 320px; background: radial-gradient(circle, #6366f1 0%, transparent 70%);"></div>
+    <div class="auth-gradient-orb" style="bottom: -60px; right: -60px; width: 220px; height: 220px; background: radial-gradient(circle, #a21caf 0%, transparent 70%);"></div>
+    <div class="auth-gradient-orb" style="top: 40%; left: 60%; width: 180px; height: 180px; background: radial-gradient(circle, #06b6d4 0%, transparent 70%);"></div>
+    <div class="relative z-10 w-full max-w-md mx-auto glass-effect neo-shadow rounded-3xl p-8 sm:p-10 border border-slate-700/50 shadow-2xl">
+        <div class="mb-8 text-center">
+            <div class="mx-auto mb-4 w-16 h-16 flex items-center justify-center rounded-2xl bg-gradient-to-tr from-blue-500 via-purple-500 to-pink-500 shadow-lg">
+                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-3-3v6"/>
+                </svg>
+            </div>
+            <h1 class="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-blue-200 to-purple-200 tracking-tight mb-2">
+                {{ title || 'Auth' }}
+            </h1>
+            <p class="text-slate-300 text-base">{{ subtitle || 'Silakan masukkan data Anda' }}</p>
+        </div>
+        
+        {{-- Flash Messages --}}
+        @if(flashMessages.get('error'))
+            <div class="mb-6 text-center text-red-400 font-semibold bg-red-500/10 border border-red-500/20 rounded-xl py-2 px-4">
+                {{ flashMessages.get('error') }}
+            </div>
+        @endif
+        
+        @if(flashMessages.get('success'))
+            <div class="mb-6 text-center text-emerald-400 font-semibold bg-emerald-500/10 border border-emerald-500/20 rounded-xl py-2 px-4">
+                {{ flashMessages.get('success') }}
+            </div>
+        @endif
+
+        {{-- Main Content --}}
+        {{{ await $slots.main() }}}
+
+        {{-- Auth Link --}}
+        @if($slots.authLink)
+            <div class="auth-link mt-8 pt-6 border-t border-slate-700/40 text-center">
+                {{{ await $slots.authLink() }}}
+            </div>
+        @endif
+    </div>
+</body>
+</html>

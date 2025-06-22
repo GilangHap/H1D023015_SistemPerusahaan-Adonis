@@ -1,0 +1,55 @@
+@component('layouts/auth', { title: 'Register', subtitle: 'Daftar Akun Pegawai' })
+
+@slot('main')
+    <form method="POST" action="/register" class="space-y-7">
+        {{ csrfField() }}
+        <div>
+            <label for="nip" class="block text-slate-400 font-semibold mb-2">NIP</label>
+            <input
+                type="text"
+                id="nip"
+                name="nip"
+                required
+                placeholder="Masukkan NIP Anda"
+                autocomplete="off"
+                class="w-full px-4 py-3 rounded-xl bg-slate-800 border border-slate-700 text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500 transition placeholder:text-slate-500 font-medium"
+            >
+        </div>
+        <div>
+            <label for="nama" class="block text-slate-400 font-semibold mb-2">Nama</label>
+            <input
+                type="text"
+                id="nama"
+                name="nama"
+                required
+                placeholder="Masukkan Nama Lengkap"
+                autocomplete="off"
+                class="w-full px-4 py-3 rounded-xl bg-slate-800 border border-slate-700 text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500 transition placeholder:text-slate-500 font-medium"
+            >
+        </div>
+        <div>
+            <label for="password" class="block text-slate-400 font-semibold mb-2">Password</label>
+            <input
+                type="password"
+                id="password"
+                name="password"
+                required
+                placeholder="Masukkan password"
+                autocomplete="new-password"
+                class="w-full px-4 py-3 rounded-xl bg-slate-800 border border-slate-700 text-slate-100 focus:outline-none focus:ring-2 focus:ring-purple-500 transition placeholder:text-slate-500 font-medium"
+            >
+        </div>
+        <button
+            type="submit"
+            class="w-full py-3 rounded-xl bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white font-bold shadow-lg hover:from-blue-700 hover:to-pink-700 transition-all duration-200 text-lg tracking-wide"
+        >
+            Register
+        </button>
+    </form>
+@endslot
+
+@slot('authLink')
+    <a href="/login" class="text-blue-400 hover:underline">Sudah punya akun? Login di sini</a>
+@endslot
+
+@endcomponent
